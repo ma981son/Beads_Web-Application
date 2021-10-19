@@ -1,0 +1,11 @@
+@(controller:de.htwg.se.beads.controller.controllerComponent.ControllerInterface)
+
+@beadsAsText= @{ controller.tempToString}
+
+
+@main("HTWG Beads") {
+
+    <h1>Beads</h1>
+
+    @{controller.tempToString}
+}

@@ -11,11 +11,16 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
   val beadController = Beads.controller
   def beadsAsText = beadController.tempToString
 
-  def about= Action {
+  def about: Action[AnyContent] = Action {
     Ok(views.html.index())
   }
 
-  def beads = Action {
+  def beads: Action[AnyContent] = Action {
     Ok(beadsAsText)
   }
+
+  def huichol: Action[AnyContent] = Action {
+    Ok(views.html.huichol())
+  }
+
 }
