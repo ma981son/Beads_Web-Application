@@ -10,7 +10,5 @@ GET     /resize/:length/:width      controllers.BeadsController.resize(length: I
 
 GET     /about                      controllers.BeadsController.about
 
-GET     /huichol                    controllers.BeadsController.huichol
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
