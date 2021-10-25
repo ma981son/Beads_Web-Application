@@ -1,11 +1,46 @@
+@import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
 @(controller:de.htwg.se.beads.controller.controllerComponent.ControllerInterface)
+@import controllers.javaColorToRGB.toRGB
 
-@beadsAsText= @{ controller.tempToString}
+@length= @{ controller.tempLength}
+@width = @{controller.tempWidth}
+@stitch = @{controller.stitch}
+
+@size =@{controller.bead(0,0).toString.length}
 
 
 @main("HTWG Beads") {
+    <h1 style="text-align: center; margin: 0 0 25px"> HTWG Beads</h1>
 
-    <h1>Beads</h1>
+    <div class="gamecontainer" style="text-align: center">
+        <div class="game">
+            @if(stitch.equals(Stitch.Brick)){
 
-    @{controller.tempToString}
+                @for(row <- 0 until length) {
+                    <div class="house size@size">
+                        @if(row % 2 != 0){
+                            <span class="bead">
+                                ___
+                            </span>
+                        }
+                    @for(col <- 0 until width) {
+                        <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
+                                |___|
+                        </span>
+                    }
+                    </div>
+                }
+            }else {
+                @for(row <- 0 until length) {
+                    <div class="house size@size">
+                        @for(col <- 0 until width) {
+                            <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
+                                |___|
+                            </span>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
 }
