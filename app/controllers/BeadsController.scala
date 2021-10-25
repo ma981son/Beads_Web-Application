@@ -16,11 +16,19 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
   }
 
   def beads: Action[AnyContent] = Action {
-    Ok(beadsAsText)
+    Ok(views.html.beads(beadController))
   }
 
   def huichol: Action[AnyContent] = Action {
     Ok(views.html.huichol())
   }
 
+  def newTemp = Action {
+    Ok(views.html.beads(beadController))
+  }
+
+  def resize(length: Int,width: Int) = Action {
+    beadController.changeSize(length,width)
+    Ok(views.html.beads(beadController))
+  }
 }
