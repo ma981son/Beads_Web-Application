@@ -21,12 +21,12 @@
                     <div class="house size">
                         @if(row % 2 != 0){
                             <span class="bead">
-                                ___
+                                __
                             </span>
                         }
                     @for(col <- 0 until width) {
                         <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
-                                |___|
+                                |__|
                         </span>
                     }
                     </div>
