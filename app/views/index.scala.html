@@ -1,36 +1,41 @@
 @()
 
+@telaImage={src=@routes.Assets.versioned("images/pattern2.jpg")}
+
 @main("HTWG Beads") {
 
-  <h1 style="text-align: center; margin: 25px 0 25px">About Beads</h1>
+  <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")'/>
 
-  <table style="width: 500px; margin-right: auto; margin-left: auto">
-    <tr>
-      <td>
-        <fieldset style="width: 800px; margin-right: auto; margin-left: auto">
+  <div>
+    <image class="tela" @telaImage></image>
+  </div>
+
+  <div id="content">
+  <h1>About Beads</h1>
+        <fieldset class="about_fieldset">
           Beadwork is the art or craft of attaching beads to one another by stringing them onto a thread or thin wire with a
           sewing or beading needle or sewing them to cloth. Beads are produced in a diverse range of materials, shapes, and
           sizes, and vary by the kind of art produced. Most often, beadwork is a form of personal adornment (e.g. jewelry),
           but it also commonly makes up other artworks.
         </fieldset>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <fieldset style="width: 800px; margin-right: auto; margin-left: auto">
-          <img style="width: 800px" src=@routes.Assets.versioned("images/MAFE.jpeg")>
+
+        <fieldset id="about_picture_fieldset">
+          <img id="about_picture" src=@routes.Assets.versioned("images/MAFE.jpeg")>
         </fieldset>
-      </td>
-    </tr>
-    <tr>
-      <td>
-      <fieldset style="width: 800px; margin-right: auto; margin-left: auto">
+
+      <fieldset class="about_fieldset">
         This is a starter application using Play for the Lecture Web-Application at HTWG. With this Application provides
         the opportunity to design your Beadwork beforehand.
       </fieldset>
-      </td>
-    </tr>
 
-  </table>
 
+    <div style="text-align: center; margin-top: 2em">
+        <a href="/">
+            To Beads
+        </a>
+    </div>
+  </div>
+  <div>
+    <image class="tela" @telaImage></image>
+  </div>
 }
