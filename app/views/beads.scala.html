@@ -11,10 +11,12 @@
 
 
 @main("HTWG Beads") {
-    <h1 style="text-align: center; margin: 25px 0 25px"> HTWG Beads</h1>
 
-    <div class="gamecontainer" style="text-align: center; margin: 0 0 25px">
-        <div class="game">
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")'/>
+    <h1>HTWG Beads</h1>
+
+    <div class="templateContainer">
+        <div class="template">
             @if(stitch.equals(Stitch.Brick)){
 
                 @for(row <- 0 until length) {
@@ -45,87 +47,85 @@
         </div>
     </div>
 
-    <div class="info">
-        <table style="margin-left: auto; margin-right: auto; margin-top: 25px">
+<div class="container">
+    <fieldset class="fieldset" id="patternProp"><legend class="fieldset_label">Pattern Properties</legend>
+        <table>
             <tr>
                 <td>
-                    <table>
-                        <tr>
-                            <td>
-@*                                //pattern*@
-                                <fieldset style="text-align: left; height: 100px"><legend>Pattern Properties</legend>
-                                <table>
-                                    <tr>
-@*                                        //Stitch*@
-                                        <td><label for="stitch">Stitch</label></td>
-                                        <td>
-                                            <select name="stitch" id="stitch" style="width: 170px; height: 23px" >
-                                                @if(controller.stitch.eq(Stitch.Brick)){
-                                                    <option selected="brick">Brick</option>
-                                                    <option value="square">Square</option>
-                                                } else {
-                                                    <option value="brick">Brick</option>
-                                                    <option selected="square">Square</option>
-                                                }
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="columns">Columns</label></td>
-                                        <td><input type="number" name="columns" style="text-align: right"
-                                        value="@{controller.tempWidth}" readonly></td>
-                                        <td><input type="text" name="sizecol" style="text-align: right;background: lightgray"
-                                        value="@{(beadSize * controller.tempLength).toString + "cm"}" readonly></td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="rows">Rows</label></td>
-                                        <td><input type="number" name="rows" style="text-align: right"
-                                                                    value="@{controller.tempLength}" readonly></td>
-                                        <td><input type="text" name="sizerows" style="text-align: right; background: lightgray"
-                                        value="@{(beadSize * controller.tempWidth).toString + "cm"}" readonly></td>
-                                    </tr>
-                                </table>
-                                </fieldset>
-                            </td>
-                            <td>
-@*                                //size*@
-                                <fieldset style="text-align: center; height: 100px"><legend>Bead Size</legend>
-                                    <table cellspacing="10px">
-                                        <tr>
-                                            <td>
-                                                <select name=beadSize id="size" style="height: 23px;width: 90px">
-                                                    <option value="6/0">6/0</option>
-                                                    <option value="7/0">7/0</option>
-                                                    <option value="8/0">8/0</option>
-                                                    <option value="9/0">9/0</option>
-                                                    <option value="10/0">10/0</option>
-                                                    <option value="11/0">11/0</option>
-                                                    <option value="12/0" selected>12/0</option>
-                                                    <option value="15/0">15/0</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="button" name="fillTemp" value="Fill Template" style="width: 90px;height: 23px"></td>
-                                        </tr>
-                                    </table>
-                                </fieldset>
-                            </td>
-                        </tr>
-                    </table>
+                    <label for="stitch">Stitch</label>
                 </td>
                 <td>
- @*                 //colorcooser*@
-                    <fieldset style="text-align: center; height: 100px"><legend>Colors</legend>
-                    <input type="color" id="colorchooser" style="margin-top: 30px">
-                    </fieldset>
+                    <select class="select" id="stitch">
+                    @if(controller.stitch.eq(Stitch.Brick)){
+                        <option selected="brick">Brick</option>
+                        <option value="square">Square</option>
+                    } else {
+                        <option value="brick">Brick</option>
+                        <option selected="square">Square</option>
+                    }
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="columns">Columns</label>
+                </td>
+                <td>
+                    <input type="number" id="columns" class="sizeInput"
+                    value="@{controller.tempWidth}" readonly>
+                </td>
+                <td>
+                    <input type="text" id="sizecol" class="sizeCm"
+                    value="@{(beadSize * controller.tempWidth).toString + "cm"}" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="rows">Rows</label>
+                </td>
+                <td>
+                    <input type="number" id="rows" class="sizeInput"
+                    value="@{controller.tempLength}" readonly>
+                </td>
+                <td>
+                    <input type="text" id="sizecol" class="sizeCm"
+                    value="@{(beadSize * controller.tempLength).toString + "cm"}" readonly>
                 </td>
             </tr>
         </table>
-    </div>
+    </fieldset>
 
-    <div style="text-align: center; margin-top: 30px">
-        <a href="/about" style="font-size: 18px">
+    <fieldset class="fieldset" id="beadSize"><legend class="fieldset_label">BeadSize</legend>
+        <table>
+            <tr>
+                <td>
+                    <select class="select" id="size">
+                        <option value="6/0">6/0</option>
+                        <option value="7/0">7/0</option>
+                        <option value="8/0">8/0</option>
+                        <option value="9/0">9/0</option>
+                        <option value="10/0">10/0</option>
+                        <option value="11/0">11/0</option>
+                        <option value="12/0" selected>12/0</option>
+                        <option value="15/0">15/0</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" id="fillButton" value="Fill Template" >
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset class="fieldset" id="colors"><legend class="fieldset_label">Colors</legend>
+        <input type="color" id="colorChooser">
+    </fieldset>
+</div>
+
+    <div style="text-align: center; margin-top: 1em">
+        <a href="/about">
             About Beads
         </a>
     </div>
