@@ -1,6 +1,23 @@
 
 @normalFont: "Courier New", monospace;
 
+.tela{
+  margin: 0;
+  width: 5%;
+  display: flex;
+  height: 100vh;
+  float: left;
+  object-fit: cover;
+}
+
+#application{
+  width: 90%;
+  float: left;
+}
+
+body{
+  margin: 0;
+}
 
 h1 {
   height: 100%;
@@ -13,7 +30,7 @@ h1 {
   letter-spacing: 4px;
   font-weight: 600;
   text-align: center;
-  color: dimgrey;
+  color: #4D4D4D;
 }
 
 .templateContainer {
@@ -22,10 +39,35 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
+  font-size: 0;
   font-family: Arial, serif;
   font-weight: normal;
   text-align: center;
+}
+
+.bead{
+  width: 3em;
+  height: 2em;
+  font-size: 10px;
+  margin: 0;
+  display: inline-block;
+  border-color: grey;
+}
+.bead:hover{
+  border-color: #4D4D4D;
+}
+
+.emptyBead{
+  width: 3em;
+  height: 2em;
+  margin: 0;
+  display: inline-block;
+  font-size: 10px;
+  background-color: transparent;
+  border: none;
+  overflow: hidden;
+  outline: none;
+
 }
 
 .container {
