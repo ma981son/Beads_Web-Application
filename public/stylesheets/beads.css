@@ -121,4 +121,16 @@
 .pagecontainer{
     width: 96%;
     float: left;
+    margin: 1em auto auto;
+}
+
+.pagecontainerAbout{
+    width: 96%;
+    margin: 1em auto auto;
+    display: block;
+    font-size: 16px;
+}
+
+.carousel-inner img {
+    margin: auto;
 }

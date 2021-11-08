@@ -12,7 +12,7 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
   def beadsAsText: String = beadController.tempToString
 
   def about: Action[AnyContent] = Action {
-    Ok(views.html.index())
+    Ok(views.html.indexBoot())
   }
 
   def beads: Action[AnyContent] = Action {
