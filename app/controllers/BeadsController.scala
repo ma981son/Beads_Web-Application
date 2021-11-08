@@ -16,7 +16,7 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
   }
 
   def beads: Action[AnyContent] = Action {
-    Ok(views.html.beads(beadController))
+    Ok(views.html.beadsBoot(beadController))
   }
 
   def newTemp: Action[AnyContent] = Action {
