@@ -1,6 +1,7 @@
+
+@import controllers.javaColorToRGB.toRGB
 @import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
 @(controller:de.htwg.se.beads.controller.controllerComponent.ControllerInterface)
-@import controllers.javaColorToRGB.toRGB
 
 @length= @{ controller.tempLength}
 @width = @{controller.tempWidth}
@@ -9,22 +10,50 @@
 @beadSize =@{0.22}
 @telaImage={src=@routes.Assets.versioned("images/pattern2.jpg")}
 
-
 @main("HTWG Beads") {
 
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/main.css")'/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/beads.css")' />
 
     <div>
-        <image class="tela" @telaImage></image>
+        <image class="tela" style="float: left" @telaImage></image>
     </div>
 
-    <div id="application">
-    <h1>HTWG Beads</h1>
+    <div class="pagecontainer">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">HTWG Beads</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">New</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Size
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/resize/25/25">Large (25x25)</a>
+                        <a class="dropdown-item" href="/resize/10/10">Small (10x10)</a>
+                        <a class="dropdown-item" href="resize/5/5">Tiny (5x5)</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
     <div class="templateContainer">
         <div class="template">
             @if(stitch.equals(Stitch.Brick)){
-
                 @for(row <- 0 until length) {
                     <div class="house size">
                         @if(row % 2 != 0){
@@ -32,113 +61,107 @@
                                 <input type="button" class="emptyBead">
                             </span>
                         }
-                    @for(col <- 0 until width) {
-                        <span class="bead1">
+                        @for(col <- 0 until width) {
+                            <span class="bead1">
                                 <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
-                        </span>
-                    }
+                            </span>
+                        }
                     </div>
                 }
             }else {
                 @for(row <- 0 until length) {
                     <div class="house size">
-                        @for(col <- 0 until width) {
-                            <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
-                                <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
-                            </span>
-                        }
+                    @for(col <- 0 until width) {
+                        <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
+                            <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
+                        </span>
+                    }
                     </div>
                 }
             }
         </div>
     </div>
 
-<div class="container">
-    <fieldset class="fieldset" id="patternProp"><legend class="fieldset_label">Pattern Properties</legend>
-        <table>
-            <tr>
-                <td>
-                    <label for="stitch">Stitch</label>
-                </td>
-                <td>
-                    <select class="select" id="stitch">
-                    @if(controller.stitch.eq(Stitch.Brick)){
-                        <option selected="brick">Brick</option>
-                        <option value="square">Square</option>
-                    } else {
-                        <option value="brick">Brick</option>
-                        <option selected="square">Square</option>
-                    }
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="columns">Columns</label>
-                </td>
-                <td>
-                    <input type="number" id="columns" class="sizeInput"
-                    value="@{controller.tempWidth}" readonly>
-                </td>
-                <td>
-                    <input type="text" id="sizecol" class="sizeCm"
-                    value="@{(beadSize * controller.tempWidth).toString + "cm"}" readonly>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="rows">Rows</label>
-                </td>
-                <td>
-                    <input type="number" id="rows" class="sizeInput"
-                    value="@{controller.tempLength}" readonly>
-                </td>
-                <td>
-                    <input type="text" id="sizecol" class="sizeCm"
-                    value="@{(beadSize * controller.tempLength).toString + "cm"}" readonly>
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-
-    <fieldset class="fieldset" id="beadSize"><legend class="fieldset_label">BeadSize</legend>
-        <table>
-            <tr>
-                <td>
-                    <select class="select" id="size">
-                        <option value="6/0">6/0</option>
-                        <option value="7/0">7/0</option>
-                        <option value="8/0">8/0</option>
-                        <option value="9/0">9/0</option>
-                        <option value="10/0">10/0</option>
-                        <option value="11/0">11/0</option>
-                        <option value="12/0" selected>12/0</option>
-                        <option value="15/0">15/0</option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" id="fillButton" value="Fill Template" >
-                </td>
-            </tr>
-        </table>
-    </fieldset>
-
-    <fieldset class="fieldset" id="colors"><legend class="fieldset_label">Colors</legend>
-        <input type="color" id="colorChooser">
-    </fieldset>
-</div>
-
-    <div style="text-align: center; margin-top: 1em">
-        <a href="/about">
-            About Beads
-        </a>
+        <div class="row row-cols-1 row-cols-md-3 no-gutters justify-content-center">
+            <div class="col-md-6">
+                <div class="card text-center row-cols-3 border-light h-100">
+                    <div class="card-header">Pattern Properties</div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row no-gutters">
+                                <div class="col-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Stitch</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-select w-100 h-100" id="inputGroupSelect01">
+                                    @if(controller.stitch.eq(Stitch.Brick)){
+                                        <option selected="brick">Brick</option>
+                                        <option value="square">Square</option>
+                                    } else {
+                                        <option value="brick">Brick</option>
+                                        <option selected="square">Square</option>
+                                    }
+                                    </select>
+                                </div>
+                                <div class="col"></div>
+                            </div>
+                            <div class="row row-cols-3 no-gutters mt-1">
+                                <div class="col-3"><span class="input-group-text">Columns</span></div>
+                                <div class="col-6"><input type="number" aria-label="cols" class="form-control text-right" value="@{controller.tempWidth}"></div>
+                                <div class="col-3"><input type="text-end" aria-label="sizeCols" class="form-control text-right" value="@{(beadSize * controller.tempWidth).toString + "cm"}" readonly></div>
+                            </div>
+                            <div class="row row-cols-3 no-gutters mt-1">
+                                <div class="col-3"><span class="input-group-text">Rows</span></div>
+                                <div class="col-6"><input type="number" aria-label="rows" class="form-control text-right" value="@{controller.tempLength}"></div>
+                                <div class="col-3"><input type="text" aria-label="sizeRows" class="form-control text-right" value="@{(beadSize * controller.tempLength).toString + "cm"}" readonly></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center border-light h-100">
+                    <div class="card-header">Bead Size</div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row row-cols-3 no-gutters">
+                                <div class="col-5">
+                                    <label class="input-group-text" for="inputGroupSelect01">Size</label>
+                                </div>
+                                <div class="col-7">
+                                    <select class="form-select w-100 h-100" id="inputGroupSelect01">
+                                        <option value="6/0">6/0</option>
+                                        <option value="7/0">7/0</option>
+                                        <option value="8/0">8/0</option>
+                                        <option value="9/0">9/0</option>
+                                        <option value="10/0">10/0</option>
+                                        <option value="11/0">11/0</option>
+                                        <option value="12/0" selected>12/0</option>
+                                        <option value="15/0">15/0</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row row-cols-3 no-gutters mt-1">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-outline-info w-100">Fill Template</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card border-light h-100">
+                    <div class="card-header text-center">Colors</div>
+                    <div class="card-body">
+                        <input type="color" class="form-control form-control-color h-75" id="exampleColorInput" title="Choose your color">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    </div>
     <div>
-        <image class="tela" @telaImage></image>
+        <image class="tela" style="float: right" @telaImage></image>
     </div>
-
 }

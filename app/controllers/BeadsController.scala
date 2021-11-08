@@ -9,17 +9,17 @@ import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
 @Singleton
 class BeadsController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
   val beadController: ControllerInterface = Beads.controller
-  def beadsAsText: String = beadController.tempToString
 
   def about: Action[AnyContent] = Action {
-    Ok(views.html.indexBoot())
+    Ok(views.html.index())
   }
 
   def beads: Action[AnyContent] = Action {
-    Ok(views.html.beadsBoot(beadController))
+    Ok(views.html.beads(beadController))
   }
 
   def newTemp: Action[AnyContent] = Action {
+    beadController.createEmptyTemplate(beadController.tempLength,beadController.tempWidth,beadController.stitch)
     Ok(views.html.beads(beadController))
   }
 
