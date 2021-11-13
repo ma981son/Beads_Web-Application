@@ -6,6 +6,8 @@
 # Controller for Beads
 GET     /                           controllers.BeadsController.beads
 GET     /new                        controllers.BeadsController.newTemp
+GET     /square                     controllers.BeadsController.newTempSquare
+GET     /brick                      controllers.BeadsController.newTempBrick
 GET     /resize/:length/:width      controllers.BeadsController.resize(length: Int,width: Int)
 
 GET     /about                      controllers.BeadsController.about

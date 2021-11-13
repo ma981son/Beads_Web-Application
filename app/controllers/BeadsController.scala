@@ -4,6 +4,7 @@ import javax.inject._
 import play.api.mvc._
 import de.htwg.se.beads.Beads
 import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
 
 
 @Singleton
@@ -20,6 +21,16 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
 
   def newTemp: Action[AnyContent] = Action {
     beadController.createEmptyTemplate(beadController.tempLength,beadController.tempWidth,beadController.stitch)
+    Ok(views.html.beads(beadController))
+  }
+
+  def newTempSquare: Action[AnyContent] = Action {
+    beadController.createEmptyTemplate(beadController.tempLength,beadController.tempWidth,Stitch.Square)
+    Ok(views.html.beads(beadController))
+  }
+
+  def newTempBrick: Action[AnyContent] = Action {
+    beadController.createEmptyTemplate(beadController.tempLength,beadController.tempWidth,Stitch.Brick)
     Ok(views.html.beads(beadController))
   }
 

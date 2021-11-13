@@ -15,8 +15,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/beads.js")"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/beads.css")' />
+
 
     <div>
         <image class="tela" style="float: left" @telaImage></image>
@@ -57,13 +59,14 @@
                 @for(row <- 0 until length) {
                     <div class="house size">
                         @if(row % 2 != 0){
-                            <span class="bead">
+                            <span class="beadEMPTY">
                                 <input type="button" class="emptyBead">
                             </span>
                         }
                         @for(col <- 0 until width) {
                             <span class="bead1">
-                                <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
+                                <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}"
+                                onclick="changeBeadColor(this)" id="beadID">
                             </span>
                         }
                     </div>
@@ -73,7 +76,8 @@
                     <div class="house size">
                     @for(col <- 0 until width) {
                         <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
-                            <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
+                            <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}"
+                            onclick="changeBeadColor(this)">
                         </span>
                     }
                     </div>
@@ -93,7 +97,7 @@
                                     <label class="input-group-text" for="inputGroupSelect01">Stitch</label>
                                 </div>
                                 <div class="col-6">
-                                    <select class="form-select w-100 h-100" id="inputGroupSelect01">
+                                    <select class="form-select w-100 h-100" id="inputGroupSelect01" onchange="goToTestPage(this.value)">
                                     @if(controller.stitch.eq(Stitch.Brick)){
                                         <option selected="brick">Brick</option>
                                         <option value="square">Square</option>
@@ -143,7 +147,7 @@
                             </div>
                             <div class="row row-cols-3 no-gutters mt-1">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-outline-info w-100">Fill Template</button>
+                                    <button type="button" class="btn btn-outline-info w-100" id="fill" onclick="fillTemplate()">Fill Template</button>
                                 </div>
                             </div>
                         </div>
