@@ -38,4 +38,8 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
     beadController.changeSize(length,width)
     Ok(views.html.beads(beadController))
   }
+
+  def tempToJson = Action {
+    Ok(beadController.toJson)
+  }
 }
