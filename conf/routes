@@ -15,5 +15,6 @@ GET     /about                      controllers.BeadsController.about
 
 GET     /json                       controllers.BeadsController.tempToJson
 
+GET     /websocket                  controllers.BeadsController.socket
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

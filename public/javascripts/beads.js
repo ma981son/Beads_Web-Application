@@ -99,9 +99,7 @@ function loadJson() {
 
         success: function (data) {
             grid = new Grd(data.temp.length,data.temp.width)
-            //console.log(grid)
             grid.fill(data.temp.beads)
-            //console.log(grid)
             updateGrid(grid);
             registerClickListener();
             registerInputListener()
@@ -122,8 +120,39 @@ function setBeadOnServer(row,col,r,g,b) {
         })
 }
 
+function connectWebSocket() {
+    console.log("Connecting to Websocket");
+    var wbsocket = new WebSocket("ws://localhost:9000/websocket")
+    wbsocket.setTimeout
+
+    wbsocket.onopen = function (event) {
+        console.log("Connected to Websocket")
+    }
+
+    wbsocket.onclose = function () {
+        console.log("Connection closed")
+    }
+
+    wbsocket.onerror = function (error) {
+        console.log("Error occurred: " + error)
+    }
+
+    wbsocket.onmessage = function (e) {
+        if(typeof e.data == "string") {
+            let json = JSON.parse(e.data)
+            grid = new Grd(json.temp.length,json.temp.width)
+            location.reload()
+            grid.fill(json.temp.beads)
+            updateGrid(grid);
+            registerClickListener();
+            registerInputListener()
+        }
+    }
+}
+
 $(document).ready(function (){
     console.log("Document is ready, filling Template");
     loadJson();
+    connectWebSocket()
 })
 
