@@ -14,7 +14,7 @@
         font-size: 10px;
         margin: 0;
         display: inline-flex;
-        border-color: grey;
+        border: 1px solid #404040;
     }
 
     .emptyBead {
@@ -45,7 +45,7 @@
         font-size: 10px;
         margin: 0;
         display: inline-flex;
-        border-color: grey;
+        border: 1px solid #404040;
     }
 
     .emptyBead {
@@ -76,7 +76,7 @@
         font-size: 10px;
         margin: 0;
         display: inline-flex;
-        border-color: grey;
+        border: 1px solid #404040;
     }
 
     .emptyBead {

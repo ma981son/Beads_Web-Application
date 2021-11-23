@@ -6,11 +6,14 @@
 # Controller for Beads
 GET     /                           controllers.BeadsController.beads
 GET     /new                        controllers.BeadsController.newTemp
-GET     /square                     controllers.BeadsController.newTempSquare
-GET     /brick                      controllers.BeadsController.newTempBrick
+GET     /stitch/Square              controllers.BeadsController.newTempSquare
+GET     /stitch/Brick               controllers.BeadsController.newTempBrick
 GET     /resize/:length/:width      controllers.BeadsController.resize(length: Int,width: Int)
+GET     /set/:row/:col/:r/:g/:b     controllers.BeadsController.set(row:Int,col:Int,r:Int,g:Int,b:Int)
 
 GET     /about                      controllers.BeadsController.about
+
+GET     /json                       controllers.BeadsController.tempToJson
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

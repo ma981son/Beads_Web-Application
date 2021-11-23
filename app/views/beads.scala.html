@@ -12,6 +12,7 @@
 
 @main("HTWG Beads") {
 
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
@@ -39,34 +40,27 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/new">New</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Size
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/resize/25/25">Large (25x25)</a>
-                        <a class="dropdown-item" href="/resize/10/10">Small (10x10)</a>
-                        <a class="dropdown-item" href="resize/5/5">Tiny (5x5)</a>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="/json" download="Beads_Template">Save</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <div class="templateContainer">
+    <div class="templateContainer" id="temp">
         <div class="template">
+            for( index <- 0 until length){
             @if(stitch.equals(Stitch.Brick)){
                 @for(row <- 0 until length) {
-                    <div class="house size">
+                    <div class="house size" id="@{row}">
                         @if(row % 2 != 0){
                             <span class="beadEMPTY">
                                 <input type="button" class="emptyBead">
                             </span>
                         }
                         @for(col <- 0 until width) {
-                            <span class="bead1">
-                                <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}"
-                                onclick="changeBeadColor(this)" id="beadID">
+                            <span class="bead1" id="@{col}">
+                                <input type="button" class="bead" id="beadR@{row}C@{col}">
                             </span>
                         }
                     </div>
@@ -75,15 +69,16 @@
                 @for(row <- 0 until length) {
                     <div class="house size">
                     @for(col <- 0 until width) {
-                        <span class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}">
-                            <input type="button" class="bead" style="background: @{toRGB(controller.bead(row,col).beadColor)}"
-                            onclick="changeBeadColor(this)">
+                        <span class="bead1">
+                            <input type="button" class="bead" id="beadR@{row}C@{col}">
                         </span>
                     }
                     </div>
                 }
             }
+            }
         </div>
+
     </div>
 
         <div class="row row-cols-1 row-cols-md-3 no-gutters justify-content-center">
@@ -97,26 +92,26 @@
                                     <label class="input-group-text" for="inputGroupSelect01">Stitch</label>
                                 </div>
                                 <div class="col-6">
-                                    <select class="form-select w-100 h-100" id="inputGroupSelect01" onchange="goToTestPage(this.value)">
+                                    <select class="form-select w-100 h-100" id="stitch" onchange="goToTestPage(this.value)">
                                     @if(controller.stitch.eq(Stitch.Brick)){
-                                        <option selected="brick">Brick</option>
-                                        <option value="square">Square</option>
+                                        <option selected="Brick">Brick</option>
+                                        <option value="Square">Square</option>
                                     } else {
-                                        <option value="brick">Brick</option>
-                                        <option selected="square">Square</option>
+                                        <option value="Brick">Brick</option>
+                                        <option selected="Square">Square</option>
                                     }
                                     </select>
                                 </div>
                                 <div class="col"></div>
                             </div>
                             <div class="row row-cols-3 no-gutters mt-1">
-                                <div class="col-3"><span class="input-group-text">Columns</span></div>
-                                <div class="col-6"><input type="number" aria-label="cols" class="form-control text-right" value="@{controller.tempWidth}"></div>
+                                <div class="col-3"><span class="input-group-text" Id="rowInput">Columns</span></div>
+                                <div class="col-6"><input type="number" aria-label="cols" class="form-control text-right" id="colIn" value="@{controller.tempWidth}"></div>
                                 <div class="col-3"><input type="text-end" aria-label="sizeCols" class="form-control text-right" value="@{(beadSize * controller.tempWidth).toString + "cm"}" readonly></div>
                             </div>
                             <div class="row row-cols-3 no-gutters mt-1">
                                 <div class="col-3"><span class="input-group-text">Rows</span></div>
-                                <div class="col-6"><input type="number" aria-label="rows" class="form-control text-right" value="@{controller.tempLength}"></div>
+                                <div class="col-6"><input type="number" aria-label="rows" class="form-control text-right" id="rowIn" value="@{controller.tempLength}"></div>
                                 <div class="col-3"><input type="text" aria-label="sizeRows" class="form-control text-right" value="@{(beadSize * controller.tempLength).toString + "cm"}" readonly></div>
                             </div>
                         </div>
@@ -147,7 +142,7 @@
                             </div>
                             <div class="row row-cols-3 no-gutters mt-1">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-outline-info w-100" id="fill" onclick="fillTemplate()">Fill Template</button>
+                                    <button type="button" class="btn btn-outline-info w-100" id="fill">Fill Template</button>
                                 </div>
                             </div>
                         </div>
@@ -158,7 +153,7 @@
                 <div class="card border-light h-100">
                     <div class="card-header text-center">Colors</div>
                     <div class="card-body">
-                        <input type="color" class="form-control form-control-color h-75" id="exampleColorInput" title="Choose your color">
+                        <input type="color" class="form-control form-control-color h-75" id="exampleColorInput" title="Choose your color" value="#000002">
                     </div>
                 </div>
             </div>

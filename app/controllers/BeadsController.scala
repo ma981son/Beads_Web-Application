@@ -4,7 +4,9 @@ import javax.inject._
 import play.api.mvc._
 import de.htwg.se.beads.Beads
 import de.htwg.se.beads.controller.controllerComponent.ControllerInterface
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
+import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Stitch}
+
+import java.awt
 
 
 @Singleton
@@ -39,7 +41,20 @@ class BeadsController @Inject()(cc: ControllerComponents) extends AbstractContro
     Ok(views.html.beads(beadController))
   }
 
+  def set(row:Int, col:Int, r:Int, g:Int, b:Int)= Action {
+    beadController.setColor(row,col, new awt.Color(r,g,b))
+    beadController.save()
+    Ok(views.html.beads(beadController))
+  }
+
+  def rgbToAWT(color: Color): awt.Color = {
+    new awt.Color(color.r.toInt,color.g.toInt,color.b.toInt)
+  }
+
   def tempToJson = Action {
+    beadController.save()
     Ok(beadController.toJson)
   }
+
 }
+
