@@ -13,10 +13,16 @@
 @main("HTWG Beads") {
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+    <script src="@routes.Assets.versioned("javascripts/vue.js")"></script>
     <script type="text/javascript" src="@routes.Assets.versioned("javascripts/beads.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/beadsVue.js")"></script>
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/beads.css")' />
 
@@ -47,39 +53,9 @@
         </div>
     </nav>
 
-    <div class="templateContainer" id="temp">
-        <div class="template">
-            for( index <- 0 until length){
-            @if(stitch.equals(Stitch.Brick)){
-                @for(row <- 0 until length) {
-                    <div class="house size" id="@{row}">
-                        @if(row % 2 != 0){
-                            <span class="beadEMPTY">
-                                <input type="button" class="emptyBead">
-                            </span>
-                        }
-                        @for(col <- 0 until width) {
-                            <span class="bead1" id="@{col}">
-                                <input type="button" class="bead" id="beadR@{row}C@{col}">
-                            </span>
-                        }
-                    </div>
-                }
-            }else {
-                @for(row <- 0 until length) {
-                    <div class="house size">
-                    @for(col <- 0 until width) {
-                        <span class="bead1">
-                            <input type="button" class="bead" id="beadR@{row}C@{col}">
-                        </span>
-                    }
-                    </div>
-                }
-            }
-            }
+        <div id="beads-template">
+            <button-counter></button-counter>
         </div>
-
-    </div>
 
         <div class="row row-cols-1 row-cols-md-3 no-gutters justify-content-center">
             <div class="col-md-6">
@@ -163,4 +139,6 @@
     <div>
         <image class="tela" style="float: right" @telaImage></image>
     </div>
+
+
 }

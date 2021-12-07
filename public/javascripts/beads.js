@@ -1,8 +1,9 @@
 
 class Grd {
-    constructor(length,width) {
+    constructor(length,width,stitch) {
         this.length = length;
         this.width = width;
+        this.stitch = stitch;
         this.beadValue = Array.from(Array(length), () => new Array(width));
     }
     fill(json){
@@ -16,7 +17,7 @@ class Grd {
     }
 }
 
-var grid = new Grd(5, 5);
+var grid = new Grd(20, 20,'Brick')
 
 function updateGrid() {
     console.log("Updating Template")
@@ -98,14 +99,16 @@ function loadJson() {
         dataType: "json",
 
         success: function (data) {
-            grid = new Grd(data.temp.length,data.temp.width)
+            grid = new Grd(data.temp.length,data.temp.width,data.temp.stitch)
             grid.fill(data.temp.beads)
-            updateGrid(grid);
+            updateGrid();
             registerClickListener();
             registerInputListener()
         }
     });
 }
+
+
 function changeTempStitch(stitch){
     $.get("/stitch/"+stitch)
 }
@@ -140,8 +143,10 @@ function connectWebSocket() {
     wbsocket.onmessage = function (e) {
         if(typeof e.data == "string") {
             let json = JSON.parse(e.data)
-            grid = new Grd(json.temp.length,json.temp.width)
-            location.reload()
+            if(json.temp.length !== grid.length && json.temp.width !== grid.width){
+                grid = new Grd(json.temp.length,json.temp.width)
+                location.reload()
+            }
             grid.fill(json.temp.beads)
             updateGrid(grid);
             registerClickListener();
@@ -154,5 +159,10 @@ $(document).ready(function (){
     console.log("Document is ready, filling Template");
     loadJson();
     connectWebSocket()
+    let template = new Vue({
+        el: '#beads-template',
+    });
 })
+
+
 
