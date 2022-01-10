@@ -1,5 +1,85 @@
-@()
 
-@main("Welcome to Play") {
-  <h1>Welcome to Play!</h1>
+@telaImage={src=@routes.Assets.versioned("images/pattern2.jpg")}
+
+@main("HTWG Beads") {
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/beads.css")' />
+
+@*    <div>
+        <image class="tela" style="float: left" @telaImage></image>
+    </div>*@
+
+    <div class="pagecontainerAbout">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">HTWG Beads</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Template<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/new">New</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Size
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/resize/25/25">Large (25x25)</a>
+                            <a class="dropdown-item" href="/resize/10/10">Small (10x10)</a>
+                            <a class="dropdown-item" href="resize/5/5">Tiny (5x5)</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row justify-content-lg-center my-3 mx-3">
+                <div class="col">
+                    <div class="card border-light">
+                        <div class="card-header">About Beading</div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                Beadwork is the art or craft of attaching beads to one another by stringing them onto a thread or thin wire with a
+                                sewing or beading needle or sewing them to cloth. Beads are produced in a diverse range of materials, shapes, and
+                                sizes, and vary by the kind of art produced. Most often, beadwork is a form of personal adornment (e.g. jewelry),
+                                but it also commonly makes up other artworks.
+                            </p>
+                        </div>
+                        <img class="card-img-bottom img-fluid" src=@routes.Assets.versioned("images/index1.jpeg") alt="Card image cap">
+                    </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col mt-3 justify-content-center">
+                    <div class="card border-light">
+                        <div class="card-header">About Beads</div>
+                        <div class="card-body text-center">
+                            <p class="card-text text-left">This is a starter application using Play for the Lecture Web-Application at HTWG. With this Application
+                                you have the opportunity to design your Beadwork very easily beforehand.
+                            </p>
+                            <a href="/" class="btn btn-info">Try Beads</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-100"></div>
+                <div class="col">
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+@*    <div>*@
+@*        <image class="tela" style="float: left" @telaImage></image>*@
+@*    </div>*@
 }

@@ -3,8 +3,18 @@
 # https://www.playframework.com/documentation/latest/ScalaRouting
 # ~~~~
 
-# An example controller showing a sample home page
-GET     /                           controllers.HomeController.index()
+# Controller for Beads
+GET     /                           controllers.BeadsController.beads
+GET     /new                        controllers.BeadsController.newTemp
+GET     /stitch/Square              controllers.BeadsController.newTempSquare
+GET     /stitch/Brick               controllers.BeadsController.newTempBrick
+GET     /resize/:length/:width      controllers.BeadsController.resize(length: Int,width: Int)
+GET     /set/:row/:col/:r/:g/:b     controllers.BeadsController.set(row:Int,col:Int,r:Int,g:Int,b:Int)
 
+GET     /about                      controllers.BeadsController.about
+
+GET     /json                       controllers.BeadsController.tempToJson
+
+GET     /websocket                  controllers.BeadsController.socket
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

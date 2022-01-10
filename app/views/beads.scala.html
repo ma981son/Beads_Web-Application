@@ -1,0 +1,144 @@
+
+@import controllers.javaColorToRGB.toRGB
+@import de.htwg.se.beads.model.templateComponent.templateBaseImpl.Stitch
+@(controller:de.htwg.se.beads.controller.controllerComponent.ControllerInterface)
+
+@length= @{ controller.tempLength}
+@width = @{controller.tempWidth}
+@stitch = @{controller.stitch}
+
+@beadSize =@{0.22}
+@telaImage={src=@routes.Assets.versioned("images/pattern2.jpg")}
+
+@main("HTWG Beads") {
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+
+    <script src="@routes.Assets.versioned("javascripts/vue.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.versioned("javascripts/beads.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/beadsVue.js")"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/beads.css")' />
+
+
+    <div>
+        <image class="tela" style="float: left" @telaImage></image>
+    </div>
+
+    <div class="pagecontainer">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">HTWG Beads</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">About <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/new">New</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/json" download="Beads_Template">Save</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+        <div id="beads-template">
+            <button-counter></button-counter>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 no-gutters justify-content-center">
+            <div class="col-md-6">
+                <div class="card text-center row-cols-3 border-light h-100">
+                    <div class="card-header">Pattern Properties</div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row no-gutters">
+                                <div class="col-3">
+                                    <label class="input-group-text" for="inputGroupSelect01">Stitch</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-select w-100 h-100" id="stitch" onchange="goToTestPage(this.value)">
+                                    @if(controller.stitch.eq(Stitch.Brick)){
+                                        <option selected="Brick">Brick</option>
+                                        <option value="Square">Square</option>
+                                    } else {
+                                        <option value="Brick">Brick</option>
+                                        <option selected="Square">Square</option>
+                                    }
+                                    </select>
+                                </div>
+                                <div class="col"></div>
+                            </div>
+                            <div class="row row-cols-3 no-gutters mt-1">
+                                <div class="col-3"><span class="input-group-text" Id="rowInput">Columns</span></div>
+                                <div class="col-6"><input type="number" aria-label="cols" class="form-control text-right" id="colIn" value="@{controller.tempWidth}"></div>
+                                <div class="col-3"><input type="text-end" aria-label="sizeCols" class="form-control text-right" value="@{(beadSize * controller.tempWidth).toString + "cm"}" readonly></div>
+                            </div>
+                            <div class="row row-cols-3 no-gutters mt-1">
+                                <div class="col-3"><span class="input-group-text">Rows</span></div>
+                                <div class="col-6"><input type="number" aria-label="rows" class="form-control text-right" id="rowIn" value="@{controller.tempLength}"></div>
+                                <div class="col-3"><input type="text" aria-label="sizeRows" class="form-control text-right" value="@{(beadSize * controller.tempLength).toString + "cm"}" readonly></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card text-center border-light h-100">
+                    <div class="card-header">Bead Size</div>
+                    <div class="card-body">
+                        <div class="container">
+                            <div class="row row-cols-3 no-gutters">
+                                <div class="col-5">
+                                    <label class="input-group-text" for="inputGroupSelect01">Size</label>
+                                </div>
+                                <div class="col-7">
+                                    <select class="form-select w-100 h-100" id="inputGroupSelect01">
+                                        <option value="6/0">6/0</option>
+                                        <option value="7/0">7/0</option>
+                                        <option value="8/0">8/0</option>
+                                        <option value="9/0">9/0</option>
+                                        <option value="10/0">10/0</option>
+                                        <option value="11/0">11/0</option>
+                                        <option value="12/0" selected>12/0</option>
+                                        <option value="15/0">15/0</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row row-cols-3 no-gutters mt-1">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-outline-info w-100" id="fill">Fill Template</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="card border-light h-100">
+                    <div class="card-header text-center">Colors</div>
+                    <div class="card-body">
+                        <input type="color" class="form-control form-control-color h-75" id="exampleColorInput" title="Choose your color" value="#000002">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <image class="tela" style="float: right" @telaImage></image>
+    </div>
+
+
+}
