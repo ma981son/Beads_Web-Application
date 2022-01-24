@@ -141,7 +141,6 @@ function connectWebSocket() {
         if(typeof e.data == "string") {
             let json = JSON.parse(e.data)
             grid = new Grd(json.temp.length,json.temp.width)
-            location.reload()
             grid.fill(json.temp.beads)
             updateGrid(grid);
             registerClickListener();
