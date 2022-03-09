@@ -10,6 +10,8 @@ GET     /stitch/Square              controllers.BeadsController.newTempSquare
 GET     /stitch/Brick               controllers.BeadsController.newTempBrick
 GET     /resize/:length/:width      controllers.BeadsController.resize(length: Int,width: Int)
 GET     /set/:row/:col/:r/:g/:b     controllers.BeadsController.set(row:Int,col:Int,r:Int,g:Int,b:Int)
+GET     /redo                       controllers.BeadsController.redo()
+GET     /undo                       controllers.BeadsController.undo()
 
 GET     /about                      controllers.BeadsController.about
 

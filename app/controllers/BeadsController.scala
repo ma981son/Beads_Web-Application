@@ -51,6 +51,16 @@ class BeadsController @Inject()(cc: ControllerComponents)(implicit system: Actor
     Ok(views.html.beads(beadController))
   }
 
+  def undo() = Action {
+    beadController.undo()
+    Ok(views.html.beads(beadController))
+  }
+
+  def redo() = Action {
+    beadController.redo()
+    Ok(views.html.beads(beadController))
+  }
+
   def rgbToAWT(color: Color): awt.Color = {
     new awt.Color(color.r.toInt,color.g.toInt,color.b.toInt)
   }
