@@ -3,14 +3,14 @@ package controllers
 import javax.inject._
 import play.api.mvc._
 import de.htwg.se.beads.Beads
-import de.htwg.se.beads.controller.controllerComponent.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
-import de.htwg.se.beads.model.templateComponent.templateBaseImpl.{Color, Stitch}
 
 import java.awt
 import play.api.libs.streams.ActorFlow
 import akka.actor.ActorSystem
 import akka.stream.Materializer
 import akka.actor._
+import de.htwg.se.beads.controller.{BeadChanged, ControllerInterface, TemplateChanged, TemplateSizeChanged}
+import de.htwg.se.beads.model.template.templateBaseImpl.{Color, Stitch}
 
 import scala.swing.Reactor
 
